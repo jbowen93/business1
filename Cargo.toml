@@ -1,0 +1,8 @@
+[package]
+name = "site1"
+version = "0.1.0"
+authors = ["jbowen93 <jish.bowen@gmail.com>"]
+
+[dependencies]
+rocket = "0.1.0"
+rocket_codegen = "0.1.1"

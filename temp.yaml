@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rocket-app
+  labels:
+    name: rocket-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: rocket-app
+    spec:
+      containers:
+      - name: rocket
+        image: rocket:v0.0.1
+        ports:
+          - containerPort: 8000
