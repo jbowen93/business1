@@ -1,14 +1,9 @@
-FROM ubuntu:16.04
+FROM jbowen/rust:nightly
 
-ADD . /source
+RUN mkdir -p /rust/app
+WORKDIR /rust/app
 
-RUN apt-get update
-RUN yes | apt-get install curl
-RUN yes | apt-get install gcc
+COPY . /rust/app
+CMD cargo build --release
 
-RUN curl https://sh.rustup.rs -sSf | \
-    sh -s -- --default-toolchain nightly -y
-
-ENV PATH=/root/.cargo/bin:$PATH
-
-RUN rustup target add x86_64-unknown-linux-musl
+CMD cargo run --release

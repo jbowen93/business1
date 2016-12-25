@@ -13,6 +13,7 @@ spec:
     spec:
       containers:
       - name: rocket
-        image: rocket:v0.0.1
-        ports:
-          - containerPort: 8000
+        image: rocket:v0.0.11
+        env:
+        - name: "ROCKET_ENV"
+          value: "staging"
