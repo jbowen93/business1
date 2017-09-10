@@ -20,14 +20,12 @@ struct Claims {
 struct ApiKey(String);
 
 fn is_valid(key: &str) -> bool {
-    let validation = Validation {
-        algorithms: Some(vec!(Algorithm::RS256)), 
-        ..Default::default()
-    };
-    let token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.e30.e30";
-    let token_data = decode::<Claims>(&token, "test".as_bytes(), &validation);
-    // println!("{:?}", token_data);
-    let header = decode_header(&token);
+    // let validation = Validation {
+    //     algorithms: Some(vec!(Algorithm::RS256)), 
+    //     ..Default::default()
+    // };
+    // let token_data = decode::<Claims>(&key, "test".as_bytes(), &validation);
+    let header = decode_header(key);
     println!("{:?}", header);
     true
 }
@@ -40,14 +38,15 @@ impl<'a, 'r> FromRequest<'a, 'r> for ApiKey {
         if keys.len() != 1 {
             return Outcome::Failure((Status::BadRequest, ()));
         }
-
-        let key = keys[0];
-        //TODO: replace with API call to auth0
-        if !is_valid(keys[0]) {
+        let parts: Vec<&str> = keys[0].split(' ').collect();
+        if parts[0] != "Bearer" {
+            return Outcome::Failure((Status::BadRequest, ()));
+        }
+        if !is_valid(parts[1]) {
             return Outcome::Forward(());
         }
 
-        return Outcome::Success(ApiKey(key.to_string()));
+        return Outcome::Success(ApiKey(parts[1].to_string()));
     }
 }
 
