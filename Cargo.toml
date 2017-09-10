@@ -4,5 +4,8 @@ version = "0.1.0"
 authors = ["jbowen93 <jish.bowen@gmail.com>"]
 
 [dependencies]
-rocket = "0.3.*"
-rocket_codegen = "0.3.*"
+rocket = { git = "https://github.com/SergioBenitez/Rocket.git" }
+rocket_codegen = { git = "https://github.com/SergioBenitez/Rocket.git" }
+jsonwebtoken = "3"
+serde_derive = "1"
+serde = "1"

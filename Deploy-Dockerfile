@@ -1,5 +1,8 @@
 FROM alpine:3.4
 
+COPY Rocket.toml /
 COPY target/x86_64-unknown-linux-musl/release/site1 /
+ENV ROCKET_ENV stage
+ENV port 3000
 
 CMD ["/site1"]
